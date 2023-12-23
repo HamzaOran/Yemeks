@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useGetUserID } from '../hooks/useGetUserID';
 
 export const Home = () => {
   const [recipes, setRecipes] = useState([]);
+  const [savedRecipes, setSavedRecipes] = useState([]);
 
+  const userID = useGetUserID();
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
@@ -15,8 +18,34 @@ export const Home = () => {
       }
     };
 
+    const fetchSavedRecipe = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3003/recipes/savedRecipes/ids/${userID}`
+        );
+        setSavedRecipes(response.data.savedRecipes);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchSavedRecipe();
     fetchRecipe();
   }, []);
+
+  const saveRecipe = async (recipeID) => {
+    try {
+      const response = await axios.put('http://localhost:3003/recipes', {
+        recipeID,
+        userID,
+      });
+      setSavedRecipes(response.data.savedRecipes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
     <div>
@@ -26,9 +55,15 @@ export const Home = () => {
           <li key={recipe._id}>
             <div>
               <h2>{recipe.name}</h2>
+              <button
+                onClick={() => saveRecipe(recipe._id)}
+                disabled={isRecipeSaved(recipe._id)}
+              >
+                {isRecipeSaved(recipe._id) ? 'Saved' : 'Save'}
+              </button>
             </div>
             {recipe.ingredients.map((ingredient, index) => (
-              <div>{ingredient}</div>
+              <div key={index}>{ingredient}</div>
             ))}
             <div className="instructions">
               <p>{recipe.instructions}</p>
