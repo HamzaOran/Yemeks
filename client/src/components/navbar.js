@@ -13,15 +13,19 @@ export const Navbar = () => {
 
   return (
     <div className="navbar">
-      <Link to="/">Home</Link>
-      <Link to="/create-recipe">Create Recipes</Link>
+      <Link to="/">Yemeks</Link>
+      <Link to="/create-recipe">Yeni Tarif</Link>
 
       {!cookies.access_token ? (
-        <Link to="/auth">Login</Link>
+        <Link to="/auth">
+          <button className="button">Giriş</button>
+        </Link>
       ) : (
         <>
-          <Link to="/saved-recipes">Saved Recipes</Link>
-          <button onClick={logout}>Logout</button>
+          <Link to="/saved-recipes">Listem</Link>
+          <button className="button" onClick={logout}>
+            Çıkış
+          </button>
         </>
       )}
     </div>

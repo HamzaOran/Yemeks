@@ -41,7 +41,7 @@ const Login = () => {
       setUsername={setUsername}
       password={password}
       setPassword={setPassword}
-      label="Login"
+      label="Giriş Yap"
       onSubmit={onSubmit}
     />
   );
@@ -59,7 +59,7 @@ const Register = () => {
         username,
         password,
       });
-      alert('Registered successfully! Now login');
+      alert('Kayıt Başarılı. Giriş Yapabilirsiniz');
     } catch (err) {
       console.error(err);
     }
@@ -70,7 +70,7 @@ const Register = () => {
       setUsername={setUsername}
       password={password}
       setPassword={setPassword}
-      label="Register"
+      label="Kayıt Ol"
       onSubmit={onSubmit}
     />
   );
@@ -89,7 +89,7 @@ const Form = ({
       <form onSubmit={onSubmit}>
         <h2>{label}</h2>
         <div className="form-group">
-          <label htmlFor="username">Username: </label>
+          <label htmlFor="username">Kullanıcı Adı: </label>
           <input
             type="text"
             id="username"
@@ -98,7 +98,7 @@ const Form = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Username: </label>
+          <label htmlFor="password">Şifre: </label>
           <input
             type="password"
             id="password"

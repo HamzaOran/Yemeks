@@ -23,9 +23,9 @@ export const SavedRecipes = () => {
 
   return (
     <div>
-      <h1>Saved Recipes</h1>
+      <h1>Listem</h1>
       <ul>
-        {savedRecipes.map((recipe) => (
+        {savedRecipes?.map((recipe) => (
           <li key={recipe._id}>
             <div>
               <h2>{recipe.name}</h2>
@@ -37,7 +37,7 @@ export const SavedRecipes = () => {
               <p>{recipe.instructions}</p>
             </div>
             <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Cooking Time: {recipe.cookingTime} (minutes)</p>
+            <p>Pişirme Süresi: {recipe.cookingTime} (dk)</p>
           </li>
         ))}
       </ul>

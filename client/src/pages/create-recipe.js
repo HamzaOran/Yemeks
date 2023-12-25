@@ -41,7 +41,7 @@ export const CreateRecipe = () => {
       await axios.post('http://localhost:3003/recipes', recipe, {
         headers: { authorization: cookies.access_token },
       });
-      alert('Recipe Created');
+      alert('Tarif Eklendi');
       navigate('/');
     } catch (err) {
       console.error(err);
@@ -50,14 +50,15 @@ export const CreateRecipe = () => {
 
   return (
     <div className="create-recipe">
-      <h1>Create Recipe</h1>
+      <h1>Tarif Oluştur</h1>
       <form onSubmit={onSubmit}>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">Ad</label>
         <input type="text" id="name" name="name" onChange={handleChange} />
 
-        <label htmlFor="ingredients">Ingredients</label>
+        <label htmlFor="ingredients">Malzemeler</label>
         {recipe.ingredients.map((ingredient, index) => (
           <input
+            className="malzeme"
             type="text"
             key={index}
             name="ingredients"
@@ -65,30 +66,32 @@ export const CreateRecipe = () => {
             onChange={(event) => handleIngredientChange(event, index)}
           />
         ))}
-        <button onClick={addIngredient} type="button">
-          Add Ingredients
+        <button className="button" onClick={addIngredient} type="button">
+          Ekle
         </button>
-        <label htmlFor="instructions">Instructions</label>
+        <label htmlFor="instructions">Yapılışı</label>
         <textarea
           name="instructions"
           id="instructions"
           onChange={handleChange}
         ></textarea>
-        <label htmlFor="imageUrl">Image URL</label>
+        <label htmlFor="imageUrl">Resim</label>
         <input
           type="text"
           id="imageUrl"
           name="imageUrl"
           onChange={handleChange}
         />
-        <label htmlFor="cookingTime">Cooking Time (minutes)</label>
+        <label htmlFor="cookingTime">Pişirme Süresi(dk)</label>
         <input
           type="number"
           id="cookingTime"
           name="cookingTime"
           onChange={handleChange}
         />
-        <button type="submit">Create Recipe</button>
+        <button type="submit" className="button">
+          Gönder
+        </button>
       </form>
     </div>
   );

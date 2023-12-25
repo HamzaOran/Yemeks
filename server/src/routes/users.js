@@ -10,7 +10,7 @@ router.post('/register', async (req, res) => {
   const user = await UserModel.findOne({ username });
 
   if (user) {
-    return res.json({ message: 'User already exists!' });
+    return res.json({ message: 'Kullanıcı Adı Alınmış!' });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
   const newUser = new UserModel({ username, password: hashedPassword });
   await newUser.save();
 
-  res.json({ message: 'User Registered Successfully!' });
+  res.json({ message: 'Kayıt Başarılı!' });
 });
 
 router.post('/login', async (req, res) => {
@@ -26,13 +26,13 @@ router.post('/login', async (req, res) => {
   const user = await UserModel.findOne({ username });
 
   if (!user) {
-    return res.json({ message: 'User not found!' });
+    return res.json({ message: 'Kullanıcı Bulunamadı!' });
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return res.json({ message: 'Username or Password Is Incorrect!' });
+    return res.json({ message: 'Kullanıcı Adı veya Parola Yanlış!' });
   }
 
   const token = jwt.sign({ id: user._id }, 'secret');

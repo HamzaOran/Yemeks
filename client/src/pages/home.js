@@ -52,31 +52,35 @@ export const Home = () => {
     }
   };
 
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
+  const isRecipeSaved = (id) => savedRecipes?.includes(id);
 
   return (
     <div>
-      <h1>Recipes</h1>
+      <h1>Tarifler</h1>
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe._id}>
-            <div>
+            <div className="wrap">
               <h2>{recipe.name}</h2>
               <button
+                className="button"
                 onClick={() => saveRecipe(recipe._id)}
                 disabled={isRecipeSaved(recipe._id)}
               >
-                {isRecipeSaved(recipe._id) ? 'Saved' : 'Save'}
+                {isRecipeSaved(recipe._id) ? 'Kaydedildi' : 'Kaydet'}
               </button>
             </div>
+            Malzemeler:
             {recipe.ingredients.map((ingredient, index) => (
-              <div key={index}>{ingredient}</div>
+              <li className="ingre" key={index}>
+                {ingredient}
+              </li>
             ))}
             <div className="instructions">
               <p>{recipe.instructions}</p>
             </div>
             <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Cooking Time: {recipe.cookingTime} (minutes)</p>
+            <p>Pişirme Süresi: {recipe.cookingTime} (dk)</p>
           </li>
         ))}
       </ul>
